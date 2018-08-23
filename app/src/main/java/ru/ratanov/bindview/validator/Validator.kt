@@ -1,6 +1,7 @@
 package ru.ratanov.bindview.validator
 
 import android.app.Activity
+import android.util.Log
 import android.widget.EditText
 import ru.pay.bisys.centralkass.entity.provider.mask.MaskWatcher
 import ru.ratanov.bindview.annotation.CardNumber
@@ -21,11 +22,10 @@ class Validator {
     }
 
     private fun checkSingle(fields: Array<Field>) {
-        val annotations = fields.map { it.annotations.size }
-
-
-        if (annotations.size != 2) {
-            throw IllegalArgumentException("You can annotate ONLY ONE field with <@CardNumber>")
+        fields.forEach {field ->
+            field.annotations.forEachIndexed { index, annotation ->
+                Log.d("Annotation:", "$index. ${annotation.annotationClass.simpleName}")
+            }
         }
     }
 }
