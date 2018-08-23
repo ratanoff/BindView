@@ -1,0 +1,12 @@
+import org.gradle.internal.jvm.Jvm
+
+apply plugin: 'java-library'
+
+dependencies {
+    implementation files(Jvm.current().getToolsJar())
+    implementation project(':bindview-api')
+    implementation 'com.squareup:javapoet:1.2.0'
+}
+
+sourceCompatibility = "1.7"
+targetCompatibility = "1.7"
