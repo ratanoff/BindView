@@ -22,6 +22,10 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.card_input)
     EditText cardInput;
 
+    @CardNumber
+    @BindView(R.id.fake_input)
+    EditText editText;
+
     @Counter
     @BindView(R.id.test_textView)
     TextView textView;
@@ -30,14 +34,12 @@ public class MainActivity extends AppCompatActivity {
     @MyButton
     Button countButton;
 
-    Validator validator;
+    Validator validator = new Validator();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        validator = new Validator();
         validator.init(this);
 
         textView.setText("BindView is working!");
@@ -49,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
                 count(view);
             }
         });
-
     }
 
 
