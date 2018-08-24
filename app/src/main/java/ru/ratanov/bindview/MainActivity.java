@@ -5,34 +5,39 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.lang.reflect.Field;
 
+import ru.ratanov.bindview.annotation.CVV;
+import ru.ratanov.bindview.annotation.CardHolder;
 import ru.ratanov.bindview.annotation.CardNumber;
-import ru.ratanov.bindview.annotation.Counter;
-import ru.ratanov.bindview.annotation.MyButton;
+import ru.ratanov.bindview.annotation.ExpDate;
+import ru.ratanov.bindview.annotation.PayButtton;
 import ru.ratanov.bindview.validator.Validator;
 import ru.ratanov.bindview_api.BindView;
 
 public class MainActivity extends AppCompatActivity {
 
     @CardNumber
-    @BindView(R.id.card_input)
-    EditText cardInput;
+    @BindView(R.id.card_number_input)
+    EditText cardNumberInput;
 
-    @CardNumber
-    @BindView(R.id.fake_input)
-    EditText editText;
+    @ExpDate
+    @BindView(R.id.exp_date_input)
+    EditText expDateInput;
 
-    @Counter
-    @BindView(R.id.test_textView)
-    TextView textView;
+    @CVV
+    @BindView(R.id.cvv_input)
+    EditText cvvInput;
 
-    @Counter
-    @MyButton
-    Button countButton;
+    @CardHolder
+    @BindView(R.id.card_holder_input)
+    EditText cardHolderInput;
+
+    @PayButtton
+    @BindView(R.id.pay_button)
+    Button payButton;
 
     Validator validator = new Validator();
 
@@ -42,26 +47,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         validator.init(this);
 
-        textView.setText("BindView is working!");
 
-        countButton = findViewById(R.id.count_button);
-        countButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                count(view);
-            }
-        });
     }
 
 
     public void count(View view) {
         int counter = 0;
         for (Field field : MainActivity.class.getDeclaredFields()) {
-            if (field.isAnnotationPresent(Counter.class)) {
-                counter++;
-            }
 
-            if (field.isAnnotationPresent(MyButton.class)) {
+
+            if (field.isAnnotationPresent(PayButtton.class)) {
                 Toast.makeText(this, "class = " + field.getType() + "\nname = " + field.getName(), Toast.LENGTH_SHORT).show();
 
                 try {
@@ -75,7 +70,5 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }
-
-        textView.setText(String.valueOf(counter));
     }
 }

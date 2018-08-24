@@ -20,6 +20,8 @@ class MaskWatcher(private var mask: String) : TextWatcher {
 
         val editableLength = editable.length
 
+        if (editableLength == mask.length) return
+
         if (isRunning || isDeleting) {
             return
         }
